@@ -1,0 +1,166 @@
+{
+	"info": {
+		"_postman_id": "4a6d8db1-6e84-49f0-a22b-5385eebe1f09",
+		"name": "account statements APIs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20077873"
+	},
+	"item": [
+		{
+			"name": "login admin",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userName\": \"admin\",\r\n    \"password\": \"admin\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:9696/api/v1/auth/login",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "9696",
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userName\": \"user\",\r\n    \"password\": \"user\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:9696/api/v1/auth/login",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "9696",
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "logout",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiJhMDNhMGViYS1kNTFjLTQ1ZDUtOWU4OS1mYjRiYTJiOWYzMTkiLCJzdWIiOiJhZG1pbiIsImlhdCI6MTcyNTczNDgxOCwiaXNzIjoidHJlZSIsImV4cCI6MTcyNTczNTExOCwiY3JlYXRlZCI6MTcyNTczNDgxODI1Nn0.UBzk7KB2ya7gVLCinotsscc42XJMi_2YvVu6EF9Y-OWSNvhB9u2kMpUvq976tKwJNpWhE5kEytDZHizVBN6LUg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userName\": \"admin\",\r\n    \"password\": \"admin\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:9696/api/v1/auth/logout",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "9696",
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "filter statements",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiJhMDNhMGViYS1kNTFjLTQ1ZDUtOWU4OS1mYjRiYTJiOWYzMTkiLCJzdWIiOiJhZG1pbiIsImlhdCI6MTcyNTczNDgxOCwiaXNzIjoidHJlZSIsImV4cCI6MTcyNTczNTExOCwiY3JlYXRlZCI6MTcyNTczNDgxODI1Nn0.UBzk7KB2ya7gVLCinotsscc42XJMi_2YvVu6EF9Y-OWSNvhB9u2kMpUvq976tKwJNpWhE5kEytDZHizVBN6LUg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"accountId\": 1,\r\n    \"dateFrom\": \"2010-08-31\",\r\n    \"dateTo\": \"2019-08-31\",\r\n    \"amountFrom\": 500,\r\n    \"amountTo\": 1000\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:9696/api/v1/statements/filter",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "9696",
+					"path": [
+						"api",
+						"v1",
+						"statements",
+						"filter"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
