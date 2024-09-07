@@ -24,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class AccountControllerTest {
+class StatementControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -45,7 +45,7 @@ class AccountControllerTest {
         String userAccessToken = response.payload().accessToken();
 
         AccountFilterRequest request = AccountFilterRequest.builder().accountId(1L).build();
-        MockHttpServletRequestBuilder accountServletRequestBuilder = post("/api/v1/accounts")
+        MockHttpServletRequestBuilder accountServletRequestBuilder = post("/api/v1/statements/filter")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON)
                 .header(HttpHeaders.AUTHORIZATION, "Bearer " + userAccessToken)
@@ -73,7 +73,7 @@ class AccountControllerTest {
         String userAccessToken = response.payload().accessToken();
 
         AccountFilterRequest request = AccountFilterRequest.builder().accountId(1L).amountFrom(500.0).amountTo(1500.0).build();
-        MockHttpServletRequestBuilder accountServletRequestBuilder = post("/api/v1/accounts")
+        MockHttpServletRequestBuilder accountServletRequestBuilder = post("/api/v1/statements/filter")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .accept(MediaType.APPLICATION_JSON)
                 .header(HttpHeaders.AUTHORIZATION, "Bearer " + userAccessToken)

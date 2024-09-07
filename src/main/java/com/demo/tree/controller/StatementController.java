@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/accounts")
+@RequestMapping("/api/v1/statements")
 @RequiredArgsConstructor
-public class AccountController {
+public class StatementController {
 
     private final AccountService accountService;
 
-    @PostMapping
+    @PostMapping("/filter")
     public AppResponse<List<Statement>> filterStatements(@Valid @RequestBody AccountFilterRequest request) {
         return AppResponse.ok(accountService.filterStatements(request));
     }
