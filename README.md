@@ -52,5 +52,10 @@ coverage report
 * mvn clean test
 * mvn jacoco:report
 
+## Test Coverage Report
+
 ![test coverage](report/test_coverage.png)
+
+## SonarQube Report
+
 ![SonarQube analysis](report/SonarQube.png)
