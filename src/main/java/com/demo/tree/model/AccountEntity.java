@@ -11,9 +11,11 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "account")
+@Table(name = "accounts")
 public class AccountEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "accounts_seq")
+    @SequenceGenerator(name = "accounts_seq", sequenceName = "accounts_seq", allocationSize = 1)
     private Long id;
     @Column(name = "account_type")
     private String accountType;

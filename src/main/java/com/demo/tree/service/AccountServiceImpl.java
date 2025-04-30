@@ -39,20 +39,12 @@ public class AccountServiceImpl implements AccountService {
         if (filterRequest.amountFrom() != null && filterRequest.amountTo() != null) {
             list = list.stream().filter(statement ->
                     (statement.amount() > filterRequest.amountFrom()
-                     && statement.amount() < filterRequest.amountTo())).toList();
+                            && statement.amount() < filterRequest.amountTo())).toList();
         }
         if (filterRequest.dateFrom() != null && filterRequest.dateTo() != null) {
             list = list.stream().filter(statement ->
                     (statement.date().after(filterRequest.dateFrom())
-                     && statement.date().before(filterRequest.dateTo()))).toList();
-        } else {
-            // 3 months back statement
-            Calendar cal = Calendar.getInstance();
-            cal.setTime(new Date());
-            cal.add(Calendar.MONTH, -3);
-            list = list.stream().filter(statement ->
-                    (statement.date().after(cal.getTime())
-                     && statement.date().before(new Date()))).toList();
+                            && statement.date().before(filterRequest.dateTo()))).toList();
         }
         return list;
     }

@@ -1,0 +1,28 @@
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="insert_accounts_data" author="Ahmed.Baz" labels="accounts">
+        <sql>
+            insert into accounts
+                (id, account_type, account_number)
+            values (next value for accounts_seq, 'VIP', 'vib_123456');
+
+            insert into accounts
+                (id, account_type, account_number)
+            values (next value for accounts_seq, 'EMP', 'emp_123456');
+
+            insert into statements
+                (id, account_id, amount, statement_date)
+            values (next value for statements_seq, 1, 6000, current_date);
+
+            insert into statements
+                (id, account_id, amount, statement_date)
+            values (next value for statements_seq, 1, 10000, current_date);
+
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>
