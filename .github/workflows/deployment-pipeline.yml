@@ -1,0 +1,60 @@
+name: CI/CD pipeline to build/test account-service
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  compile:
+    name: compile the project
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout the master
+        uses: actions/checkout@v4
+      - name: Setup JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      - name: build with Maven
+        run: mvn clean compile
+
+  run_test:
+    name: running the unit test
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_DB: test_emp
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        volumes:
+          - postgres_dev:/var/lib/postgresql/data
+        ports:
+          - 5432:5432
+    steps:
+      - name: checkout the master
+        uses: actions/checkout@v4
+      - name: Setup JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      - name: running the unit test
+        run: mvn clean test
+  
+  build:
+    name: build the package
+    needs: [ run_test, compile ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout the master
+        uses: actions/checkout@v4
+      - name: Setup JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      - name: build with Maven
+        run: mvn clean package
