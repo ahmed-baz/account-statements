@@ -8,4 +8,6 @@ import java.util.List;
 public interface AccountService {
 
     List<Statement> filterStatements(AccountFilterRequest filterRequest);
+
+    void createStatement(Statement statement);
 }

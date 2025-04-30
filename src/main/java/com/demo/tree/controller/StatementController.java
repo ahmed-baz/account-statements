@@ -26,4 +26,10 @@ public class StatementController {
         return AppResponse.ok(accountService.filterStatements(request));
     }
 
+    @PostMapping
+    public AppResponse<Void> createStatement(@Valid @RequestBody Statement statement) {
+        accountService.createStatement(statement);
+        return AppResponse.created(null);
+    }
+
 }

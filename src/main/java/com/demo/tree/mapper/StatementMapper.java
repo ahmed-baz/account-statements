@@ -16,18 +16,9 @@ import java.util.List;
         uses = AccountMapper.class)
 public interface StatementMapper {
 
-    @Mapping(source = "date", target = "date", qualifiedByName = "mapDate")
     Statement toStatement(StatementEntity entity);
 
-    @Named("mapDate")
-    default Date mapDate(String dateString) {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy");
-        try {
-            return formatter.parse(dateString);
-        } catch (ParseException e) {
-            return null;
-        }
-    }
+    StatementEntity toEntity(Statement entity);
 
     List<Statement> toStatement(List<StatementEntity> entities);
 }
