@@ -50,7 +50,7 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public void createStatement(Statement statement) {
         var statementEntity = statementMapper.toEntity(statement);
-        AccountEntity accountEntity = findAccount(statement.account().id());
+        AccountEntity accountEntity = findAccount(statement.accountId());
         statementEntity.setAccount(accountEntity);
         statementRepo.save(statementEntity);
     }

@@ -37,8 +37,8 @@ public class AuthServiceImpl implements AuthService {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         LoginResponse loginResponse = jwtTokenUtil.prepareLoginResponse(userDetails);
-        userService.validateLoginSession(requestVO.userName());
-        userService.setLoginSession(requestVO.userName());
+        //userService.validateLoginSession(requestVO.userName());
+        //userService.setLoginSession(requestVO.userName());
         return loginResponse;
     }
 
