@@ -1,5 +1,6 @@
 package com.demo.tree.controller;
 
+import com.demo.tree.dto.Account;
 import com.demo.tree.dto.AccountFilterRequest;
 import com.demo.tree.dto.AppResponse;
 import com.demo.tree.dto.Statement;
@@ -7,10 +8,7 @@ import com.demo.tree.security.vo.LoginRequest;
 import com.demo.tree.security.vo.LoginResponse;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -121,4 +119,34 @@ class StatementControllerTest {
                 .content(objectMapper.writeValueAsString(loginRequest));
         mockMvc.perform(loginServletRequestBuilder).andExpect(status().isUnauthorized());
     }
+
+    @Test
+    @Order(5)
+    void testCreateAccount() throws Exception {
+        LoginRequest loginRequest = LoginRequest.builder().userName("user").password("user").build();
+        MockHttpServletRequestBuilder loginServletRequestBuilder = post("/api/v1/auth/login")
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(loginRequest));
+        String content = mockMvc.perform(loginServletRequestBuilder).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+        AppResponse<LoginResponse> response = objectMapper.readValue(content, new TypeReference<>() {
+        });
+        String userAccessToken = response.payload().accessToken();
+
+        Account account = Account.builder().accountType("EMP").build();
+        MockHttpServletRequestBuilder accountServletRequestBuilder = post("/api/v1/accounts")
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .accept(MediaType.APPLICATION_JSON)
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + userAccessToken)
+                .content(objectMapper.writeValueAsString(account));
+        String createAccContent = mockMvc.perform(accountServletRequestBuilder)
+                .andExpect(status().isOk())
+                .andReturn().getResponse().getContentAsString();
+        AppResponse<Account> createAccResponse = objectMapper.readValue(createAccContent, new TypeReference<>() {
+        });
+        Account acc = createAccResponse.payload();
+        Assertions.assertNotNull(acc.accountNumber());
+        Assertions.assertNotNull(acc.accountType());
+    }
+
 }

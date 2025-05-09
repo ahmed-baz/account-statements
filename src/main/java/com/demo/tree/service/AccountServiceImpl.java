@@ -1,11 +1,12 @@
 package com.demo.tree.service;
 
+import com.demo.tree.dto.Account;
 import com.demo.tree.dto.AccountFilterRequest;
 import com.demo.tree.dto.Statement;
 import com.demo.tree.exceptions.AccountNotFoundException;
+import com.demo.tree.mapper.AccountMapper;
 import com.demo.tree.mapper.StatementMapper;
 import com.demo.tree.model.AccountEntity;
-import com.demo.tree.model.StatementEntity;
 import com.demo.tree.repo.AccountRepo;
 import com.demo.tree.repo.StatementRepo;
 import com.demo.tree.validation.AccValidationService;
@@ -13,10 +14,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Log4j2
 @Service
@@ -25,6 +23,7 @@ public class AccountServiceImpl implements AccountService {
 
     private final AccountRepo accountRepo;
     private final StatementMapper statementMapper;
+    private final AccountMapper accountMapper;
     private final AccValidationService accValidationService;
     private final StatementRepo statementRepo;
 
@@ -53,6 +52,16 @@ public class AccountServiceImpl implements AccountService {
         AccountEntity accountEntity = findAccount(statement.accountId());
         statementEntity.setAccount(accountEntity);
         statementRepo.save(statementEntity);
+    }
+
+    @Override
+    public Account createAccount(Account account) {
+        AccountEntity accountEntity = AccountEntity.builder()
+                .accountNumber(UUID.randomUUID().toString())
+                .accountType(account.accountType())
+                .build();
+        accountEntity = accountRepo.save(accountEntity);
+        return accountMapper.toAccount(accountEntity);
     }
 
     private AccountEntity findAccount(Long id) {
